@@ -1,11 +1,21 @@
-def custom_write(file_name = 'test.txt', strings):
+def custom_write(file_name, strings):
     strings_positions = {}
-    number = 0
+    number = 1
     file = open(file_name, 'w', encoding='utf-8')
     for i in strings:
-        if i not in file_name:
-            strings_positions.append(file.tell(), i)
-            file.close()
-            return
+        strings_positions[(number, file.tell())] = i
+        file.write(i + '\n')
+        number += 1
+    file.close()
+    return strings_positions
 
+info = [
+    'Text for tell.',
+    'Используйте кодировку utf-8.',
+    'Because there are 2 languages!',
+    'Спасибо!'
+    ]
 
+result = custom_write('test.txt', info)
+for elem in result.items():
+  print(elem)
